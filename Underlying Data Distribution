@@ -1,9 +1,9 @@
-#Downlad Quarterly GDP Data by State from BEA
+#Download Quarterly GDP by State from BEA
 #==Release: https://bea.gov/newsreleases/regional/gdp_state/qgdpstate_newsrelease.htm
 #==Tables only: https://bea.gov/newsreleases/regional/gdp_state/2018/xls/qgdpstate0518.xlsx
 #Packages required: XLConnect, fitdistrplus
 
-#Using BEA data on GDP by state (2017, Q4)
+#Extracting downloaded and slightly pre-processed BEA data on GDP by state (2017, Q4)
 GDPSt = readWorksheetFromFile("/Users/anilniraula/Downloads/qgdpstate0518.xlsx", header = FALSE,
                               sheet = 4, startRow = 4, startCol = 1, endCol = 17, endRow = 65)
 #Removing regional totals
