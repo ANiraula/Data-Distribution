@@ -25,8 +25,10 @@ summary(StateGDP)
 #Max.   :2802.29 
 #Considerable difference between mean and median
 #can show that the data might not be normally distributed
+
+#To plot the data we need to convert it back to "numeric" class
 GSP <- as.numeric(GDPSt[-c(1:4, 11, 18, 24, 32, 45, 50, 56),9])/1000
-View(GSP)
+#View(GSP)
 #Plot the data, CDF, and density 
 #(historgams work best for simple visualization of underlying distribution)
 hist(GSP)
@@ -34,13 +36,12 @@ hist(GSP)
 plot(ecdf(GSP))
 #Density is another relevant way to show where data points are concentrated
 plot(density(GSP))
-abline(v = mean(GSP), col = "green")
-abline(v = median(GSP), col = "blue")
-abline(v = mean(GSP)+sd(GSP), col = "lightblue", lty = 1)
-abline(v = mean(GSP)-sd(GSP), col = "orange", lty = 1)
+abline(v = mean(GSP), col = "green") #drawing a vertical line for the average GDP
+abline(v = median(GSP), col = "blue") #drawing a vertical line for median GDP
+abline(v = mean(GSP)+sd(GSP), col = "lightblue") #drawing a vertical line that is 1 standard deviation from the average GDP
+abline(v = mean(GSP)-sd(GSP), col = "orange")
 
 #Creating a binary vector of states with GDP +- one standerd deviation
-#from the sample mean
 St.dev <- ifelse(GSP>=mean(GSP)-sd(GSP) & GSP<=mean(GSP)+sd(GSP),1,0)
 table(St.dev)# 47 out of 51 states are within this range
 sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside this range
@@ -49,12 +50,12 @@ sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside 
 #Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (mean), and 3rd Quartiles
 #as well as maximum and minimum
 #Outliers are either 3×IQR or more above the third quartile or 3×IQR or more below the first quartile.
-#That is any data point 2 wiskers away from 1st or 3d Quartiles is potential outlier
-boxplot(GSP) #California, Texas, and New York states have highest GDP, followed by Florida
-Sample1 <- StateGDP[-c(11, 40, 47),1]
+#That is any data point 2 wkiskers away from the 1st or 3d Quartiles is a potential outlier
+boxplot(GSP) #California, Texas, and New York have the highest GDP, followed by Florida
+Sample1 <- StateGDP[-c(11, 40, 47),1] #excluding these three states for a prompt visual
 plot(ecdf(Sample1))
 
-#Identify kind of distribution that fits the data (need library "fitdistrplus")
+#Identify kinds of distribution that fits the data (need library "fitdistrplus")
 #Run the comparative distribution overview
 descdist(GSP, discrete = FALSE)
 #Major types of distribution:
@@ -77,5 +78,5 @@ fit.logis <- fitdist(GSP, "logis")
 plot(fit.logis)
 fit.logis$aic#compares better than normal fit
 #Thus, our data is best represented by lognormal distribution, folowed by exponential,
-#logistic, and then by nirmal distributions
+#logistic, and then by normal distributions
 #https://en.wikipedia.org/wiki/Log-normal_distribution
