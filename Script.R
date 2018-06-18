@@ -49,6 +49,7 @@ sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside 
 1-1/3^2# At least 89% of all not normally distributed data should be with 3 sd of the mean
 #Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (mean), and 3rd Quartiles
 #as well as maximum and minimum
+
 #Outliers are either 3×IQR or more above the third quartile or 3×IQR or more below the first quartile.
 #That is any data point 2 wkiskers away from the 1st or 3d Quartiles is a potential outlier
 boxplot(GSP) #California, Texas, and New York have the highest GDP, followed by Florida
@@ -68,15 +69,15 @@ fit.norm$aic #Akaike information criterion shows relative quality of statistical
 #Try fit lognormal distribution
 fit.lognorm <- fitdist(GSP, "lnorm")
 plot(fit.lognorm)
-fit.lognorm$aic#compares better than normal fit
+fit.lognorm$aic
 #Try fit exponential distribution
 fit.exp <- fitdist(GSP, "exp")
 plot(fit.exp)
-fit.exp$aic#compares better than normal fit
+fit.exp$aic
 #Try fit logistic distribution
 fit.logis <- fitdist(GSP, "logis")
 plot(fit.logis)
-fit.logis$aic#compares better than normal fit
-#Thus, our data is best represented by lognormal distribution, folowed by exponential,
-#logistic, and then by normal distributions
+fit.logis$aic
+
+#Thus, our data is best represented by lognormal distribution, folowed by exponential, logistic, and then by normal distributions
 #https://en.wikipedia.org/wiki/Log-normal_distribution
