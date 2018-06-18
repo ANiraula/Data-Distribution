@@ -47,13 +47,13 @@ table(St.dev)# 47 out of 51 states are within this range
 sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside this range
 #Chebyshev's Theorem = 1−1/k^2
 1-1/3^2# At least 89% of all not normally distributed data should be with 3 sd of the mean
-#Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (mean), and 3rd Quartiles
+#Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (median), and 3rd Quartiles
 #as well as maximum and minimum
 
-#Outliers are either 3×IQR or more above the third quartile or 3×IQR or more below the first quartile.
-#That is any data point 2 wkiskers away from the 1st or 3d Quartiles is a potential outlier
-boxplot(GSP) #California, Texas, and New York have the highest GDP, followed by Florida
-Sample1 <- StateGDP[-c(11, 40, 47),1] #excluding these three states for a prompt visual
+#Outliers could potentially be spotted by looking at data points that are 1.5×IQR (IQR = Q3-Q1)
+#away from either the third or the first quartile.
+boxplot(GSP) #California, Texas, and New York have the highest GDP (potential outliers), followed by Florida.
+Sample1 <- StateGDP[-c(11, 40, 47),1] #Excluding these three states for a prompt visual
 plot(ecdf(Sample1))
 
 #Identify kinds of distribution that fits the data (need library "fitdistrplus")
