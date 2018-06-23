@@ -9,7 +9,7 @@ GDPSt = readWorksheetFromFile("/Users/anilniraula/Downloads/qgdpstate0518.xlsx",
 #Removing regional totals
 #("New England", "Midwest", "Great Lakes", "Plains", 
 #"Southeast", "Southwest", "Rocky Mountain", and "Far West")
-StateGDP <-as.data.frame(as.numeric(GDPSt[-c(1:4, 11, 18, 24, 32, 45, 50, 56),9])/1000) #convert GDP to $Billions
+StateGDP <-as.data.frame(as.numeric(GDPSt[-c(1:4, 11, 18, 24, 32, 45, 50, 56),9])/1000) #convert GDP to $Millions
 colnames(StateGDP) <- c("GDP by State")
 rownames(StateGDP) <- as.list(GDPSt[-c(1:4, 11, 18, 24, 32, 45, 50, 56),1])
 View(StateGDP)
