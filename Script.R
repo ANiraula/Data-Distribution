@@ -45,7 +45,7 @@ abline(v = mean(GSP)-sd(GSP), col = "orange")
 St.dev <- ifelse(GSP>=mean(GSP)-sd(GSP) & GSP<=mean(GSP)+sd(GSP),1,0)
 table(St.dev)# 47 out of 51 states are within this range
 sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside this range
-#Chebyshev's Theorem = 1−1/k^2
+#Empirical rule of thumb: Chebyshev's Theorem = 1−1/k^2 (k = number of standard deviations)
 1-1/3^2# At least 89% of all not normally distributed data should be with 3 sd of the mean
 #Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (median), and 3rd Quartiles
 #as well as maximum and minimum
