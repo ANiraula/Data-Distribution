@@ -3,10 +3,10 @@
 #==Tables only: https://bea.gov/newsreleases/regional/gdp_state/2018/xls/qgdpstate0518.xlsx
 #Packages required: XLConnect, fitdistrplus
 
-#Extracting downloaded and slightly pre-processed BEA data on GDP by state (2017, Q4)
+#Extracting downloaded and slightly pre-processed GDP by state data from BEA (2017, Q4)
 GDPSt = readWorksheetFromFile("/Users/anilniraula/Downloads/qgdpstate0518.xlsx", header = FALSE,
                               sheet = 4, startRow = 4, startCol = 1, endCol = 17, endRow = 65)
-#Removing regional totals
+#Excluding regional totals
 #("New England", "Midwest", "Great Lakes", "Plains", 
 #"Southeast", "Southwest", "Rocky Mountain", and "Far West")
 StateGDP <-as.data.frame(as.numeric(GDPSt[-c(1:4, 11, 18, 24, 32, 45, 50, 56),9])/1000) #convert GDP to $Millions
@@ -50,14 +50,14 @@ sum(St.dev)/length(St.dev) # 0.9215686 or 92%. Thus, 8% or 4 states are outside 
 #Boxplot is another handy tool to spot outliers, it shows 1st, 2nd (median), and 3rd Quartiles
 #as well as maximum and minimum
 
-#Outliers could potentially be spotted by looking at data points that are 1.5×IQR (IQR = Q3-Q1)
+#Outliers could potentially be spotted by looking at data points that are 1.5×IQR (interquartile range = Q3-Q1)
 #away from either the third or the first quartile.
 boxplot(GSP) #California, Texas, and New York have the highest GDP (potential outliers), followed by Florida.
 Sample1 <- StateGDP[-c(11, 40, 47),1] #Excluding these three states for a prompt visual
 plot(ecdf(Sample1))
 
 #Identify kinds of distribution that fits the data (need library "fitdistrplus")
-#Run the comparative distribution overview
+#Run the comparative distribution analysis
 descdist(GSP, discrete = FALSE)
 #Major types of distribution:
 #"norm", "lnorm", "pois", "exp", "gamma", "nbinom", "geom", "beta", "unif" and "logis"
@@ -79,5 +79,6 @@ fit.logis <- fitdist(GSP, "logis")
 plot(fit.logis)
 fit.logis$aic
 
-#Thus, our data is best represented by lognormal distribution, folowed by exponential, logistic, and then by normal distributions
+#Given the AIC values for the four distributions, our data is best represented by lognormal distribution, 
+#folowed by exponential, logistic, and then by normal distributions
 #https://en.wikipedia.org/wiki/Log-normal_distribution
